@@ -2,32 +2,29 @@
 # by default this is for version 3.6.8, but it can be modified
 ARG PYTHON_VERSION=3.6.8
 
-# the base image to build from which is ready to run
-# Python code immediately
+# the base image to build from with python version passed through
 FROM python:${PYTHON_VERSION}
 
-# the working directory for docker instructions has
-# been changed to where our application is going
-# to be installed
+# set the working directory
 WORKDIR /opt/flask-app
 
-# copy the correct python script to the current working directory
+# copy files from context to working directory
+# .dockerignore is used to ignore any files you don't want to copy over
 COPY . .
 
-# the application runs on port 9000
-# port 9000 on TCP has been exposed here for documentation purposes
+# app will run on port 8000 (gunicorn default)
 EXPOSE 8000
 
 # install dependencies
 RUN pip install -r requirements.txt
 
 # env variables
+# need to be set for flask app to connect to database
 ENV MYSQL_USER=''
 ENV MYSQL_PASSWORD=''
 ENV MYSQL_URL=''
 ENV MYSQL_DATABASE=''
 ENV MYSQL_SECRETKEY=''
 
-# an entrypoint has been set here
-# the Python binary is executed, with the correct script as an argument
+# app runs on gunicorn
 ENTRYPOINT ["gunicorn", "-b", "0.0.0.0:8000", "flask_app:app"]
