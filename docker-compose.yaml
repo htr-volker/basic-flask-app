@@ -1,0 +1,12 @@
+version: '3.7'
+services:
+  nginx: 
+    image: nginx
+
+
+  flask-app:
+    image: flask-app
+    build: .
+    ports:
+    - target: 8000
+      published: 8000
