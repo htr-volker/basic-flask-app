@@ -6,7 +6,7 @@ ARG PYTHON_VERSION=3.6.8
 FROM python:${PYTHON_VERSION}
 
 # set the working directory
-WORKDIR /opt/flask-app
+WORKDIR /opt/server
 
 # copy files from context to working directory
 # .dockerignore is used to ignore any files you don't want to copy over
@@ -17,14 +17,6 @@ EXPOSE 5000
 
 # install dependencies
 RUN pip install -r requirements.txt
-
-# env variables
-# need to be set for flask app to connect to database
-ENV MYSQL_USER=''
-ENV MYSQL_PASSWORD=''
-ENV MYSQL_URL=''
-ENV MYSQL_DATABASE=''
-ENV MYSQL_SECRETKEY=''
 
 # run traditionally
 ENTRYPOINT ["/usr/local/bin/python", "app.py"]

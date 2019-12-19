@@ -1,12 +1,24 @@
 version: '3.7'
 services:
   nginx: 
-    image: nginx
-
-
-  flask-app:
-    image: flask-app
-    build: .
+    image: nginx:latest
+    container_name: nginx
+    volumes:
+    - type: bind
+      source: ./nginx/nginx.conf
+      target: /etc/nginx/nginx.conf
     ports:
-    - target: 8000
-      published: 8000
+    - target: 80
+      published: 80
+      protocol: tcp
+    depends_on:
+    - server
+  server:
+    build: ./server
+    environment:
+    - MYSQL_USER=${MYSQL_USER}
+      MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      MYSQL_URL=${MYSQL_URL}
+      MYSQL_DATABASE=${MYSQL_DATABASE}
+      MYSQL_SECRETKEY=${MYSQL_SECRETKEY}
+
