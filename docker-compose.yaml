@@ -14,5 +14,12 @@ services:
     depends_on:
     - server
   server:
+    image: server
+    container_name: server
     build: ./server
+    env_file: .env
+  service-1:
+    image: service-1
+    container_name: service-1
+    build: ./service-1
     env_file: .env
