@@ -12,14 +12,11 @@ WORKDIR /opt/server
 # .dockerignore is used to ignore any files you don't want to copy over
 COPY . .
 
-# app will run on port 5000 (gunicorn default)
-EXPOSE 5000
+# app will run on port 5001
+EXPOSE 5001
 
 # install dependencies
 RUN pip install -r requirements.txt
 
 # run traditionally
 ENTRYPOINT ["/usr/local/bin/python", "app.py"]
-
-# uncomment to run app with gunicorn 
-# ENTRYPOINT ["gunicorn", "-b", "0.0.0.0:8000", "application:app"]

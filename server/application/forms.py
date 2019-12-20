@@ -7,7 +7,5 @@ from wtforms import StringField, DateTimeField, FloatField, PasswordField, Boole
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 from application import db, bcrypt
 
-class Form(FlaskForm):
-    # Put your forms fields here
-
-    # Put any validation errors here
+class GenerateNumberButton(FlaskForm):
+    submit = SubmitField('Generate Number')
